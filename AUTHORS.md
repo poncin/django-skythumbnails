@@ -4,7 +4,8 @@ This product includes software developed at:
 * [G-Loaded Journal](http://www.g-loaded.eu/)
 * [Concentric Sky, Inc.](http://www.concentricsky.com/)
 
-Copyright 2010 George Notaras <gnot [at] g-loaded.eu>
+Copyright 2010 [George Notaras](gnot@g-loaded.eu)
+
 Additional Copyright 2012 [Concentric Sky, Inc.](http://www.concentricsky.com/).
 
 Brand names include, but are not limited to:
