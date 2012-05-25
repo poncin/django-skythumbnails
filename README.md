@@ -60,6 +60,52 @@ of the image::
         {% endif %}
     {% endif %}
 
+### Field definition
+
+The ``EnhancedImageField`` derives from the default ``ImageField`` and thus all attributes and methods of the default ``ImageField`` are inherited.
+
+In addition to the default arguments, the ``EnhancedImageField`` also supports the following:
+
+``process_source``
+    
+A dictionary of *image processing options*. The same options, that can be used for the thumbnail generation, can also be set in this attribute. If this is set, the original image will be processed using the provided options before it is saved on the remote server. Contrariwise, if this attribute is not set or set to ``None``, the uploaded image is saved in its original form, without any further processing. It should be noted that setting this attribute to an empty dictionary still causes the source image to be processed using default image processing options. This practically means that the source image will be saved in the format specified by the ``THUMBNAILS_FORMAT`` setting without any resizing or filtering taking place.
+    
+``thumbnails``
+
+A dictionary of *thumbnail definitions*. The format of each thumbnail definition is::
+    
+    <thumbnail_identifier> : <image_processing_options>
+
+**thumbnail_identifier**
+
+Is a string that uniquely identifies the thumbnail. It is required that all thumbnails use a unique identifier. This identifier is used in the thumbnail access mechanism and is also used in the generated filename of the thumbnail image file.
+
+**image_processing_options**
+
+This is a dictionary of options that will be used during the thumbnail generation. This dictionary must be present on every thumbnail definition. Any of the following supported options may be used:
+
+``size``
+
+A tuple which represents the size of the generated thumbnail.
+
+``sharpen``
+
+Boolean option. If set, the ``ImageFilter.SHARPEN`` filter will be applied to the thumbnail.
+
+``detail``
+
+Boolean option. If set, the ``ImageFilter.DETAIL`` filter will be applied to the thumbnail.
+
+``upscale``
+
+Boolean option. By default, image resizing occurs only if any of the source image dimensions is bigger than the dimension indicated by the ``size`` option. If the ``upscale`` option is set to ``True``, resizing occurs even if the generated thumbnail is bigger than the source image.
+
+``format``
+
+This is the format in which the thumbnail should be saved.
+
+Valid values are those supported by the *Python Imaging Library* (PIL). If it is not set, then the default format specified by the ``THUMBNAILS_FORMAT`` setting will be used. In case the format is set to ``JPEG``, the value of the ``THUMBNAILS_QUALITY`` is used as the quality when the image is saved.
+
 
 ## LICENSE
 
