@@ -19,7 +19,7 @@
 #  Copyright 2010 George Notaras <gnot [at] g-loaded.eu>
 
 
-VERSION = (0, 2, 0, 'final', 0)
+VERSION = (0, 2, 1)
 
 def get_version():
     version = '%d.%d.%d' % (VERSION[0], VERSION[1], VERSION[2])
