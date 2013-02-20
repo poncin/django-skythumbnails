@@ -26,7 +26,7 @@ class AdminImageWidget(AdminFileWidget):
     def render(self, name, value, attrs=None):
         output = []
         output.append(super(AdminFileWidget, self).render(name, value, attrs))
-        if value and value.field and value.field.thumbnails:
+        if value and hasattr(value, 'field') and value.field and value.field.thumbnails:
             for thumbnail_name, thumbnail_attrs in value.field.thumbnails.iteritems():
                 output.append('<span class="thumbnail">%s: <a target="_blank" href="%s"><img src="%s"/></a></span>' % \
                     (thumbnail_name, getattr(value, thumbnail_name).url, getattr(value, thumbnail_name).url))
