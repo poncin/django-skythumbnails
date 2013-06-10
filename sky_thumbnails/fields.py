@@ -90,19 +90,24 @@ class BaseThumbnailFieldFile(ImageFieldFile):
         source image's ImageFieldFile.
 
         """
-        if source_content is None:
-            source_content = self.source.get_image_content()
+        try:
+            if source_content is None:
+                source_content = self.source.get_image_content()
 
-        thumbnail_content = self.process_image(source_content)
-        self.name = self.storage.save(self.name, thumbnail_content)
+            thumbnail_content = self.process_image(source_content)
+            self.name = self.storage.save(self.name, thumbnail_content)
 
-        # Set the thumbnail as an attribute of the source image's ImageFieldFile
-        setattr(self.source, self.identifier, self)
+            # Set the thumbnail as an attribute of the source image's ImageFieldFile
+            setattr(self.source, self.identifier, self)
 
-        # Update the filesize cache
-        self._size = len(thumbnail_content)
+            # Update the filesize cache
+            self._size = len(thumbnail_content)
 
-        self._committed = True
+            self._committed = True
+        except:
+            # The image probably does not exist on disk, so the 
+            # get_image_content and process image will fail.
+            pass
 
     def delete(self):
         """Deletes the thumbnail file.
@@ -260,11 +265,9 @@ class BaseEnhancedImageFieldFile(ImageFieldFile):
                     proc_opts = self.field.thumbnails[attribute]
                     t = ThumbnailFieldFile(self.instance, self.field, self, self.name, attribute, proc_opts)
                     t.save()
-                    assert self.__dict__[attribute] == t, \
-                        Exception('Thumbnail attribute `%s` not set' % attribute)
             else:
                 return super(BaseEnhancedImageFieldFile, self).__getattr__(attribute)
-        return self.__dict__[attribute]
+        return self.__dict__.get(attribute)
 
     def save(self, name, content, save=True):
         """Saves the source image and generates thumbnails.
