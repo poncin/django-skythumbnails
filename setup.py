@@ -6,7 +6,7 @@ setup(
     version=".".join(map(str, sky_thumbnails.VERSION)),
     packages = find_packages(),
     install_requires=[
-        'cropresize==0.1.6'
+        'PILLOW==1.7.7'
     ],
 
     author = 'Concentric Sky',

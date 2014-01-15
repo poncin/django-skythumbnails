@@ -21,4 +21,6 @@ this software without prior written permission of George Notaras.
 
 For license information, please read the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
+Cropresize is copyright [Jeff Hammel](k0scist@gmail.com) License: GPL
+
 Django is a registered trademark of the Django Software Foundation.
